@@ -1,0 +1,29 @@
+---
+title: "Female Pulse Rates"
+format: html
+editor: source
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Question
+What is the difference in pulse rate between two randomly selected female students in this class?
+
+```{r}
+library(tidyverse)
+library(primer.data)
+```
+
+```{r}
+nhanes
+```
+```{r}
+nhanes |>
+  filter(gender == "Female") |>
+  select(pulse)
+```
+
+
+
