@@ -20,10 +20,45 @@ library(primer.data)
 nhanes
 ```
 ```{r}
-nhanes |>
+x = nhanes |>
   filter(gender == "Female") |>
-  select(pulse)
+  select(pulse) |>
+  drop_na()
+```
+```{r}
+x |>
+  ggplot(aes(x = pulse)) +
+  geom_histogram(binwidth = 1)
 ```
 
+## Wisdom
 
+### predictive or causal
+predictive
+
+### units
+individual females
+
+### outcome
+difference of two randomly selected pulses
+
+### covariates
+
+### Preceptor Table
+All the female pulses in this class
+
+### validity
+inconsistent medical equipment
+
+### representitiveness
+age of females could be different
+The data focuses more on minority groups
+
+### Population Table
+
+## Justice
+
+
+
+## Courage
 
