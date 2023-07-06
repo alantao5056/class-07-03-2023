@@ -18,7 +18,7 @@ library(rstanarm)
 ```
 
 ```{r}
-nhanes
+# nhanes
 ```
 ```{r}
 x = nhanes |>
@@ -32,6 +32,34 @@ x |>
   geom_histogram(aes(y=after_stat(count/sum(count))), binwidth = 1) +
   scale_y_continuous(labels = scales::percent_format())
 ```
+```{r}
+fit_obj = stan_glm(data = x,
+                   formula = pulse ~ 1,
+                   family = gaussian,
+                   refresh = 0,
+                   seed = 9)
+# fit_obj
+```
+```{r}
+newobs = tibble(.rows = 2)
+
+pp = posterior_predict(fit_obj,
+                       newdata = newobs) |>
+  as_tibble() |>
+  mutate(diff = abs(`2`-`1`))
+# pp
+```
+```{r}
+pp |>
+  ggplot(aes(x = diff)) +
+  geom_histogram(aes(y = after_stat(count/sum(count))), bins = 100) +
+  theme_classic() +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(title = "Posterior for the difference between two randomly selected female students",
+       x = "Difference in Pulse (bpm)",
+       y = "Probability")
+```
+
 
 ## Wisdom
 
@@ -73,4 +101,6 @@ people will get more nervous as the world might end
 not a causal problem
 
 ## Courage
+
+## Wisdom
 
